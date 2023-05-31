@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 const Tailwind: NextPage = () => {
   return (
-    <div className="grid gap-10">
+    <div className="grid grid-flow-row gap-10">
       <div className="bg-white p-10 rounded-3xl shadow-xl">
         <span className="font-semibold text-3xl">Select Item</span>
         <ul>
