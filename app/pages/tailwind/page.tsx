@@ -2,9 +2,11 @@ import type { NextPage } from "next";
 
 const Tailwind: NextPage = () => {
   return (
-    <div className="grid grid-flow-row gap-10 xl:place-content-center xl:grid-cols-3 lg:grid-cols-2 ">
-      <div className="flex flex-col justify-between bg-white p-10 rounded-3xl shadow-xl">
-        <span className="font-semibold text-3xl">Select Item</span>
+    <div className="grid grid-flow-row gap-10 dark xl:place-content-center xl:grid-cols-3 lg:grid-cols-2 ">
+      <div className="flex flex-col justify-between dark:bg-black bg-white p-10 rounded-3xl shadow-xl">
+        <span className="font-semibold text-3xl dark:text-white">
+          Select Item
+        </span>
         <ul>
           {[1, 2, 3, 4].map((i) => (
             <div
@@ -26,7 +28,7 @@ const Tailwind: NextPage = () => {
           <span className="font-semibold">$19</span>
         </div>
         <div className="flex justify-center">
-          <button className="mt-5 bg-blue-500 text-white p-3 text-center rounded-xl w-1/2 mx-auto hover:bg-teal-500 hover:text-black active:bg-yellow-500 focus:text-red-500">
+          <button className="mt-5 bg-blue-500 dark:bg-black dark:border-white dark:border dark:hover:bg-white text-white p-3 text-center rounded-xl w-1/2 mx-auto hover:bg-teal-500 hover:text-black active:bg-yellow-500 focus:text-red-500">
             Checkout
           </button>
         </div>
