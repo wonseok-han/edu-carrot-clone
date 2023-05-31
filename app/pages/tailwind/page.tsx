@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 
 const Tailwind: NextPage = () => {
   return (
-    <div className="grid grid-flow-row gap-10">
-      <div className="bg-white p-10 rounded-3xl shadow-xl">
+    <div className="grid grid-flow-row gap-10 xl:place-content-center xl:grid-cols-3 lg:grid-cols-2 ">
+      <div className="flex flex-col justify-between bg-white p-10 rounded-3xl shadow-xl">
         <span className="font-semibold text-3xl">Select Item</span>
         <ul>
           {[1, 2, 3, 4].map((i) => (
@@ -33,7 +33,7 @@ const Tailwind: NextPage = () => {
       </div>
 
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden group">
-        <div className="bg-blue-500 p-6 pb-14">
+        <div className="p-6 pb-14 portrait:bg-indigo-600 landscape:bg-teal-500  xl:pb-52">
           <span className="text-white text-2xl">Profile</span>
         </div>
         <div className="rounded-3xl p-6 relative -top-5 bg-white">
@@ -55,7 +55,7 @@ const Tailwind: NextPage = () => {
         </div>
       </div>
 
-      <div className="bg-white p-10 rounded-3xl shadow-xl">
+      <div className="bg-white p-10 rounded-3xl shadow-xl lg:col-span-2 xl:col-span-1">
         <div className="flex justify-between items-center mb-5">
           <button>⬅️</button>
           <div className="space-x-3">
