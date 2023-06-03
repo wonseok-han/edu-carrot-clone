@@ -7,6 +7,7 @@ const MENUS = [
   { text: "form", url: "pages/form/" },
   { text: "details", url: "pages/details/" },
   { text: "enter", url: "pages/tailwind/enter/" },
+  { text: "items", url: "pages/tailwind/items/" },
 ];
 
 const Header: NextPage = () => {
