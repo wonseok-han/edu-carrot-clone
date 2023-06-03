@@ -1,34 +1,20 @@
 import { NextPage } from "next";
-import Link from "next/link";
+import Menu from "./menu";
+
+const MENUS = [
+  { text: "home", url: "/" },
+  { text: "tailwind", url: "pages/tailwind/" },
+  { text: "form", url: "pages/form/" },
+  { text: "details", url: "pages/details/" },
+];
 
 const Header: NextPage = () => {
   return (
     <div>
       <div className="grid grid-flow-col bg-slate-400">
-        <Link
-          href="/"
-          className="bg-blue-500 p-2 m-1 rounded-xl text-center hover:bg-teal-500 hover:text-white"
-        >
-          home
-        </Link>
-        <Link
-          href="pages/tailwind/"
-          className="bg-blue-500 p-2 m-1 rounded-xl text-center hover:bg-teal-500 hover:text-white"
-        >
-          tailwind
-        </Link>
-        <Link
-          href="pages/form/"
-          className="bg-blue-500 p-2 m-1 rounded-xl text-center hover:bg-teal-500 hover:text-white"
-        >
-          form
-        </Link>
-        <Link
-          href="pages/details/"
-          className="bg-blue-500 p-2 m-1 rounded-xl text-center hover:bg-teal-500 hover:text-white"
-        >
-          details
-        </Link>
+        {MENUS.map((menu, index) => (
+          <Menu key={`${index}-${menu.text}`} text={menu.text} url={menu.url} />
+        ))}
       </div>
     </div>
   );
