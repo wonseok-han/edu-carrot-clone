@@ -8,6 +8,7 @@ const MENUS = [
   { text: "details", url: "pages/details/" },
   { text: "enter", url: "pages/tailwind/enter/" },
   { text: "items", url: "pages/tailwind/items/" },
+  { text: "community", url: "pages/tailwind/community/" },
 ];
 
 const Header: NextPage = () => {
