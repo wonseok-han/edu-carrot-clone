@@ -5,7 +5,7 @@ const LiveDetail: NextPage = () => {
     <div className="space-y-4">
       <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
       <h3 className="text-gray-800 font-semibold text-2xl mt-2">
-        Let's try potatos
+        {`Let's try potatos`}
       </h3>
       <div className="py-10 pb-16 h-[30vh] overflow-y-scroll px-4 space-y-4">
         <div className="flex items-start space-x-2">

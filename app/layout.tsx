@@ -16,9 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`min-h-screen ${inter.className}`}>
         <Header />
-        <div className="bg-slate-400 min-h-screen py-20 px-20">{children}</div>
+        <div className="py-10 w-full max-w-xl mx-auto">{children}</div>
       </body>
     </html>
   );
