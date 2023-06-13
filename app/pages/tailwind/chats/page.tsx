@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 
 const Chats: NextPage = () => {
   return (
-    <Layout>
+    <Layout hasTabBar>
       <div className="py-10 divide-y-[1px]">
         {[0, 1, 2, 3, 4, 5].map((_, i) => (
           <div

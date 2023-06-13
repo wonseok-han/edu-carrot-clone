@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 
 const Community: NextPage = () => {
   return (
-    <Layout>
+    <Layout hasTabBar>
       <div className="py-16 space-y-8">
         {[1, 2, 3, 4, 5, 7].map((_, i) => (
           <div key={i} className="flex flex-col items-start cursor-pointer">
