@@ -1,7 +1,9 @@
 "use client";
 
+import Button from "@/components/button";
 import Input from "@/components/input";
-import { cls } from "@/libs/utils";
+import useMutation from "@/libs/client/useMutation";
+import { cls } from "@/libs/client/utils";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -11,6 +13,8 @@ interface EnterForm {
 }
 
 export default function Enter() {
+  const [enter, { loading, data, error }] = useMutation("/api/users/enter");
+  const [submitting, setSubmitting] = useState(false);
   const { register, watch, handleSubmit, reset } = useForm<EnterForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
 
@@ -23,8 +27,17 @@ export default function Enter() {
     setMethod("phone");
   };
   const onValid = (data: EnterForm) => {
-    console.log(watch);
-    console.log(data);
+    // setSubmitting(true);
+    // fetch("/api/users/enter", {
+    //   method: "POST",
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then(() => {
+    //   setSubmitting(false);
+    // });
+    enter(data);
   };
 
   return (
@@ -79,10 +92,15 @@ export default function Enter() {
               required
             />
           ) : null}
-          <button className="mt-6 bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 border-r-transparent rounded-md shadow-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none">
-            {method === "email" ? "Get login link" : null}
-            {method === "phone" ? "Get one-time password" : null}
-          </button>
+          <Button
+            text={
+              submitting
+                ? "Loading..."
+                : method === "email"
+                ? "Get login link"
+                : "Get one-time password"
+            }
+          />
         </form>
         <div className="mt-6">
           <div className="relative">

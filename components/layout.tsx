@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { cls } from "@/libs/utils";
+import { cls } from "@/libs/client/utils";
 
 interface LayoutProps {
   title?: string;
