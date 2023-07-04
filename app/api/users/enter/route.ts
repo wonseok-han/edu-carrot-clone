@@ -1,8 +1,8 @@
 import client from "@/libs/server/client";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const res = await request.json();
-  console.log(res.email);
-  return new Response("ok", { status: 200 });
+  console.log(res);
+  return NextResponse.json(res);
 }

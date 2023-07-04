@@ -14,7 +14,6 @@ interface EnterForm {
 
 export default function Enter() {
   const [enter, { loading, data, error }] = useMutation("/api/users/enter");
-  const [submitting, setSubmitting] = useState(false);
   const { register, watch, handleSubmit, reset } = useForm<EnterForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
 
@@ -26,19 +25,11 @@ export default function Enter() {
     reset();
     setMethod("phone");
   };
-  const onValid = (data: EnterForm) => {
-    // setSubmitting(true);
-    // fetch("/api/users/enter", {
-    //   method: "POST",
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // }).then(() => {
-    //   setSubmitting(false);
-    // });
-    enter(data);
+  const onValid = (validForm: EnterForm) => {
+    if (loading) return;
+    enter(validForm);
   };
+  console.log(loading, data, error);
 
   return (
     <div className="mt-16 px-4">
@@ -86,7 +77,7 @@ export default function Enter() {
             <Input
               label="Phone"
               name="phone"
-              kind="text"
+              kind="phone"
               type="phone"
               register={register("phone")}
               required
@@ -94,7 +85,7 @@ export default function Enter() {
           ) : null}
           <Button
             text={
-              submitting
+              loading
                 ? "Loading..."
                 : method === "email"
                 ? "Get login link"
