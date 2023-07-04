@@ -1,9 +1,19 @@
 import client from "@/libs/server/client";
 import { NextRequest, NextResponse } from "next/server";
+import twilio from "twilio";
+
+const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
+
+interface ResponseType {
+  ok: boolean;
+  [key: string]: any;
+}
 
 export async function POST(request: NextRequest) {
+  const response = NextResponse<ResponseType>;
   const { phone, email } = await request.json();
-  const payload = phone ? { phone: +phone } : { email };
+  const user = phone ? { phone: +phone } : { email };
+  const payload = Math.floor(100000 + Math.random() * 900000) + "";
 
   // NOTE: upsert: 조건에 맞는 데이터가 있을 시 update, 없으면 생성
   //   const user = await client.user.upsert({
@@ -16,9 +26,12 @@ export async function POST(request: NextRequest) {
   //     },
   //     update: {},
   //   });
+
+  if (!user) return response.json({ ok: false }, { status: 400 });
+
   const token = await client.token.create({
     data: {
-      payload: "1234",
+      payload,
       user: {
         // NOTE: connect: 이미 존재하는 데이터를 참조.
         // NOTE: connectOrCreate: 참조할 데이터가 없을 시 생성하면서 참조.
@@ -27,11 +40,11 @@ export async function POST(request: NextRequest) {
         // },
         connectOrCreate: {
           where: {
-            ...payload,
+            ...user,
           },
           create: {
             name: "Anonymous",
-            ...payload,
+            ...user,
           },
         },
       },
@@ -85,5 +98,15 @@ export async function POST(request: NextRequest) {
   //     console.log(user);
   //   }
 
-  return NextResponse.json({ email, phone });
+  if (phone) {
+    const message = await twilioClient.messages.create({
+      messagingServiceSid: process.env.MESSAGING_SERVICE_SID,
+      to: process.env.MY_PHONE!,
+      body: `Your login token is ${payload}.`,
+    });
+
+    console.log(message);
+  }
+
+  return response.json({ ok: true });
 }
