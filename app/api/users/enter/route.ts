@@ -5,18 +5,41 @@ export async function POST(request: NextRequest) {
   const { phone, email } = await request.json();
   const payload = phone ? { phone: +phone } : { email };
 
-  const user = await client.user.upsert({
-    where: {
-      ...payload,
+  // NOTE: upsert: 조건에 맞는 데이터가 있을 시 update, 없으면 생성
+  //   const user = await client.user.upsert({
+  //     where: {
+  //       ...payload,
+  //     },
+  //     create: {
+  //       name: "Anonymous",
+  //       ...payload,
+  //     },
+  //     update: {},
+  //   });
+  const token = await client.token.create({
+    data: {
+      payload: "1234",
+      user: {
+        // NOTE: connect: 이미 존재하는 데이터를 참조.
+        // NOTE: connectOrCreate: 참조할 데이터가 없을 시 생성하면서 참조.
+        // connect: {
+        //   id: user.id,
+        // },
+        connectOrCreate: {
+          where: {
+            ...payload,
+          },
+          create: {
+            name: "Anonymous",
+            ...payload,
+          },
+        },
+      },
     },
-    create: {
-      name: "Anonymous",
-      ...payload,
-    },
-    update: {},
   });
 
   console.log(user);
+  console.log(token);
 
   //   if (email) {
   //     user = await client.user.findUnique({
