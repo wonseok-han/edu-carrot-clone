@@ -1,4 +1,5 @@
 import client from "@/libs/server/client";
+import smtpTransport from "@/libs/server/email";
 import { NextRequest, NextResponse } from "next/server";
 import twilio from "twilio";
 
@@ -106,6 +107,28 @@ export async function POST(request: NextRequest) {
     });
 
     console.log(message);
+  } else if (email) {
+    const mailOptions = {
+      from: process.env.MAIL_ID,
+      to: email,
+      subject: "Nomad Carrot Authentication Email",
+      text: `Authentication Code : ${payload}`,
+      html: `<strong>Your token is ${payload}</strong>`,
+    };
+    const result = await smtpTransport.sendMail(
+      mailOptions,
+      (error, responses) => {
+        if (error) {
+          console.log(error);
+          return null;
+        } else {
+          console.log(responses);
+          return null;
+        }
+      }
+    );
+    smtpTransport.close();
+    console.log(result);
   }
 
   return response.json({ ok: true });
